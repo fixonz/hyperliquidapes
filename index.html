@@ -41,9 +41,343 @@
         }
     </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    // ... existing code ...
+
+    <style>
+        // ... existing styles ...
+
+        /* Countdown Styles */
+        .countdown {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            min-width: 120px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown-value {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+        }
+
+        /* Team Section */
+        .team {
+            margin-bottom: 4rem;
+            width: 100%;
+        }
+
+        .team-title {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
+        }
+
+        .team-member-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--accent-color);
+            padding: 5px;
+        }
+
+        .team-member-name {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member-role {
+            font-size: 1rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Mint Section */
+        .mint-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .mint-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .mint-amount {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin: 0 1rem;
+        }
+
+        .mint-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .mint-button:hover {
+            background: var(--hover-color);
+            transform: scale(1.1);
+        }
+
+        .mint-total {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .countdown {
+                gap: 1rem;
+            }
+            .countdown-item {
+                min-width: 100px;
+            }
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
 <body>
     <div class="container">
-        <img src="coming-soon.jpg" alt="Coming Soon">
+        // ... existing hero section ...
+
+        <!-- Countdown Timer -->
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-value" id="days">00</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+
+        // ... existing stats section ...
+
+        <!-- Mint Section -->
+        <div class="mint-section" id="mintSection" style="display: none;">
+            <h3 class="feature-title">Mint Your Apes</h3>
+            <div class="mint-controls">
+                <button class="mint-button" onclick="decrementMint()">-</button>
+                <div class="mint-amount" id="mintAmount">1</div>
+                <button class="mint-button" onclick="incrementMint()">+</button>
+            </div>
+            <div class="mint-total">
+                Total: <span id="mintTotal">0.1</span> ETH
+            </div>
+            <button class="button primary" onclick="mint()" style="width: 100%; margin-top: 1rem;">
+                <i class="fas fa-coins"></i> Mint Now
+            </button>
+        </div>
+
+        // ... existing buttons section ...
+
+        <!-- Team Section -->
+        <div class="team">
+            <h2 class="team-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="placeholder.jpg" alt="Team Member" class="team-member-image">
+                    <h3 class="team-member-name">Founder</h3>
+                    <p class="team-member-role">Project Lead & Vision</p>
+                </div>
+                <div class="team-member">
+                    <img src="placeholder.jpg" alt="Team Member" class="team-member-image">
+                    <h3 class="team-member-name">Dev Lead</h3>
+                    <p class="team-member-role">Smart Contracts & Tools</p>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="social-links">
+            <a href="https://x.com/hyperliquidape" target="_blank" class="social-link" title="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://discord.gg/JtyZKydf" target="_blank" class="social-link" title="Discord">
+                <i class="fab fa-discord"></i>
+            </a>
+            <a href="#" class="social-link" title="Medium">
+                <i class="fab fa-medium"></i>
+            </a>
+        </div>
     </div>
+
+    <script>
+        // ... existing wallet connection code ...
+
+        // Countdown Timer
+        const countdownDate = new Date('2024-04-01T00:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown').style.display = 'none';
+                document.getElementById('mintSection').style.display = 'block';
+            }
+        }
+
+        const countdownTimer = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Mint Functionality
+        let mintAmount = 1;
+        const MINT_PRICE = 0.1; // ETH
+        const MAX_MINT = 5;
+
+        function updateMintUI() {
+            document.getElementById('mintAmount').textContent = mintAmount;
+            document.getElementById('mintTotal').textContent = (mintAmount * MINT_PRICE).toFixed(2);
+        }
+
+        function incrementMint() {
+            if (mintAmount < MAX_MINT) {
+                mintAmount++;
+                updateMintUI();
+            }
+        }
+
+        function decrementMint() {
+            if (mintAmount > 1) {
+                mintAmount--;
+                updateMintUI();
+            }
+        }
+
+        async function mint() {
+            if (typeof window.ethereum === 'undefined') {
+                alert('Please install MetaMask!');
+                return;
+            }
+
+            try {
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const signer = provider.getSigner();
+                
+                // Here you would interact with your smart contract
+                // This is a placeholder for the actual minting logic
+                alert('Minting functionality will be implemented when smart contract is deployed');
+                
+            } catch (error) {
+                console.error('Error minting:', error);
+                alert('Failed to mint');
+            }
+        }
+
+        // Whitelist Functionality
+        async function joinWhitelist() {
+            if (typeof window.ethereum === 'undefined') {
+                alert('Please install MetaMask!');
+                return;
+            }
+
+            try {
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                await provider.send("eth_requestAccounts", []);
+                const signer = provider.getSigner();
+                const address = await signer.getAddress();
+                
+                // Here you would interact with your whitelist smart contract or backend
+                // This is a placeholder for the actual whitelist logic
+                alert('Whitelist functionality will be implemented when smart contract is deployed');
+                
+            } catch (error) {
+                console.error('Error joining whitelist:', error);
+                alert('Failed to join whitelist');
+            }
+        }
+
+        // Add click handler for whitelist button
+        document.querySelector('.button:nth-child(2)').addEventListener('click', (e) => {
+            e.preventDefault();
+            joinWhitelist();
+        });
+    </script>
 </body>
 </html>
